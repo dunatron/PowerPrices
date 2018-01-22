@@ -24,10 +24,13 @@ SilverStripe\GraphQL\Controller:
             Events: true
         MyOrg\Model\PowerNode:
           fields: [ID, Title, NodeID]
+          paginate: false
           operations:
             read: '*'
           nestedQueries:
-            NodeData: true
+            NodeData:
+              type: MyOrg\Model\NodeData
+              paginate: false
         MyOrg\Model\NodeData:
           fields: [ID, Interval, Interval_datetime, five_min_period, isDayLightSavingHR, load, generation, price]
           operations: '*'
@@ -36,6 +39,7 @@ SilverStripe\GraphQL\Controller:
           operations:
             create: true
             read: true
+
   # Enforce HTTP basic authentication for GraphQL requests
 #  authenticators:
 #    class: SilverStripe\GraphQL\Auth\BasicAuthAuthenticator
