@@ -3,6 +3,14 @@ Name: app-graphql
 After:
   - graphqlconfig
 ---
+ ## CORS Config
+SilverStripe\GraphQL:
+ cors:
+   Enabled: true
+   Allow-Origin: '*'
+   Allow-Headers: 'Authorization, Content-Type'
+   Allow-Methods:  'GET, POST, OPTIONS'
+   Max-Age:  600  # 600 seconds = 10 minutes.
 SilverStripe\GraphQL\Controller:
   cors:
     Enabled: true
@@ -23,7 +31,7 @@ SilverStripe\GraphQL\Controller:
             Friends: true
             Events: true
         MyOrg\Model\PowerNode:
-          fields: [ID, Title, NodeID]
+          fields: [ID, Title, NodeID, BgColor]
           paginate: false
           operations:
             read: '*'

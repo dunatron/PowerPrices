@@ -39,4 +39,7 @@ class Event extends DataObject
             $this->Image()->copyVersionToStage('Stage', 'Live');
         }
     }
+
+
+
 }

@@ -10,10 +10,10 @@ import PowerNodeList from './pages/PowerNodeList';
 import ExampleChart from './components/ExampleChart';
 import BiAxialBarChart from './components/BiAxialBarChart';
 import moment from 'moment';
-import TextField from 'material-ui/TextField'
+import TextField from 'material-ui/TextField';
+import Button from 'material-ui/Button';
 import axios from 'axios';
 
-import cors from 'cors';
 
 const styles = {
   cardHolder: {
@@ -42,33 +42,38 @@ class App extends Component {
       afterDateFilter: "2012-01-22 17:25:00"
     };
 
+    this.setLastHour = this.setLastHour.bind(this);
+    //this.setLastHour = this.setLastHour.bind(this);
+
   }
 
   componentDidMount() {
-    console.log('Congrats App.jsx Component has successfully mounted')
+
   }
 
   componentDidUpdate(prevProps) {
-    // if(this.props.filter !== prevProps.filter) {
-    //   this.fetchData();
-    // }
-    console.log('Prev props from App.jsx');
-    console.log(prevProps)
+
   }
 
   componentWillReceiveProps(nextProps) {
-    // this.setState({
-    //   events: nextProps.events
-    // })
-    console.log('Next props from App.jsx');
-    console.log(nextProps)
+
   }
 
+  // good for handling state change on text bindings
   handleChange = name => event => {
     this.setState({
       [name]: event.target.value,
     });
   };
+
+
+  setLastHour() {
+    let time = moment();
+    console.log(time)
+    this.setState({
+      beforeDateFilter: "2050-01-22"
+    })
+  }
 
 
   render() {
@@ -80,52 +85,56 @@ class App extends Component {
     //   "Access-Control-Allow-Origin": "*",
     //   baseURL: 'https://emi.azure-api.net',
     //   timeout: 1000,
-    //   headers: {'Ocp-Apim-Subscription-Key': 'bee9281121354f0f97c948d4445e2c6b'}
-    //   beforeSend: function(xhrObj){
-    //     // Request headers
-    //     xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","{subscription key}");
-    //   },
-    //
+    //   headers: {
+    //     'Access-Control-Allow-Origin': '*',
+    //     'subscription-key': 'bee9281121354f0f97c948d4445e2c6b',
+    //     'Ocp-Apim-Subscription-Key': 'bee9281121354f0f97c948d4445e2c6b'}
     // });
     //
-    //
-    // myFetch.get('/rtp/?')
+    // myFetch.get('/rtp/?subscription-key=bee9281121354f0f97c948d4445e2c6b')
     //   .then((response) => {
     //     console.log(response)
-    //   });
-    // beforeSend: function(xhrObj){
-    //   // Request headers
-    //   xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","{subscription key}");
-    // },
-
-    // $(function() {
-    //   var params = {
-    //     // Request parameters
-    //     "$filter": "{string}",
-    //   };
-    //
-    //   $.ajax({
-    //     url: "https://emi.azure-api.net/rtp/?" + $.param(params),
-    //     beforeSend: function(xhrObj){
-    //       // Request headers
-    //       xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","{subscription key}");
-    //     },
-    //     type: "GET",
-    //     // Request body
-    //     data: "{body}",
-    //   })
-    //     .done(function(data) {
-    //       alert("success");
-    //     })
-    //     .fail(function() {
-    //       alert("error");
-    //     });
+    //   }).catch((err)=> {
+    //     console.log(err)
     // });
 
 
+    let axiosConfig = {
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+        'Ocp-Apim-Subscription-Key': 'bee9281121354f0f97c948d4445e2c6b',
+        "Access-Control-Allow-Origin": "*",
+      }
+    };
 
-    console.log('Log the State of the app before render');
-    console.log(this.state);
+    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    const url = "https://emi.azure-api.net/rtp"; // site that doesn’t send Access-Control-*
+    axios.get(proxyurl + url, axiosConfig)
+      .then((res) => {
+        console.log("RESPONSE RECEIVED: ", res);
+      })
+      .catch((err) => {
+        console.log("AXIOS ERROR: ", err);
+      });
+
+
+    // const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    // const url = "https://emi.azure-api.net/rtp"; // site that doesn’t send Access-Control-*
+    //
+    // axios(proxyurl + url, {
+    //   method: 'POST',
+    //   // mode: 'no-cors',
+    //   headers: {
+    //     'Access-Control-Allow-Origin': '*',
+    //     'Content-Type': 'application/json',
+    //     'Ocp-Apim-Subscription-Key': 'bee9281121354f0f97c948d4445e2c6b'
+    //   },
+    //   // withCredentials: true,
+    //   // credentials: 'same-origin',
+    // }).then(response => {
+    //   console.log(response)
+    // })
+
 
     const { classes } = this.props;
 
@@ -154,6 +163,14 @@ class App extends Component {
           onChange={this.handleChange('afterDateFilter')}
           margin="normal"
         />
+
+        <Button raised color="primary" className={classes.button} onClick={this.setLastHour}>
+          Last hour
+        </Button>
+
+        <Button raised color="primary" className={classes.button} onClick={this.setLastWeek}>
+          Last Week
+        </Button>
 
         <PowerNodeList before={this.state.beforeDateFilter} after={this.state.afterDateFilter} />
 

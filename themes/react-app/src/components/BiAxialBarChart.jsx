@@ -27,16 +27,6 @@ class BiAxialBarChart extends Component{
     console.log(MyData);
 
 
-    console.log('Try the foreach');
-    // MyData.forEach(function (value) {
-    //   console.log(value);
-    // });
-
-
-
-
-
-
     return (
       <BarChart width={600} height={300} data={realTimeData}
                 margin={{top: 20, right: 30, left: 20, bottom: 5}}>

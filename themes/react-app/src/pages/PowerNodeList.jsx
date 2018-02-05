@@ -24,7 +24,7 @@ const styles = theme => ({
 //           edges {
 //             node {
 //               price
-//             }
+//             }z
 //           }
 //         }
 //       }
@@ -52,6 +52,7 @@ const test = gql`
       node {
         ID
         NodeID
+        BgColor
     		NodeData(BeforeDate: $before, AfterDate: $after) {
       		Interval_datetime
           price
@@ -98,9 +99,13 @@ class PowerNodeList extends Component {
       return <div><h2>Loading Power Nodes</h2><CircularProgress className={classes.progress} /></div>;
     }
 
+
+
     // return readPowerNodes.edges.map(edge => {
     //   <BiAxialChart MyData={}/>
     // });
+
+    // console.log(readPowerNodes);
 
     const PowerNodes = readPowerNodes.edges;
 

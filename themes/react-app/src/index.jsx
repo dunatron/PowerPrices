@@ -13,51 +13,19 @@ const fs = require('fs');
 
 // const path = require('path');
 // const DOTENV = require('dotenv').config({path: '../../../.env'});
-import ajax from 'ajax';
 
 
-
-
-// $(function() {
-//   var params = {
-//     // Request parameters
-//     "$filter": "{string}",
-//   };
-//
-//   $.ajax({
-//     url: "https://emi.azure-api.net/rtp/?" + $.param(params),
-//     beforeSend: function(xhrObj){
-//       // Request headers
-//       xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","{subscription key}");
-//     },
-//     type: "GET",
-//     // Request body
-//     data: "{body}",
-//   })
-//     .done(function(data) {
-//       alert("success");
-//     })
-//     .fail(function() {
-//       alert("error");
-//     });
-// });
-
-
-
-
-
-let xhr = new XMLHttpRequest();
-xhr.open('GET', 'https://emi.azure-api.net/rtp/?');
-xhr.onload = function() {
-  if (xhr.status === 200) {
-    alert('User\'s name is ' + xhr.responseText);
-  }
-  else {
-    alert('Request failed.  Returned status of ' + xhr.status);
-  }
-};
-xhr.send();
-
+// let xhr = new XMLHttpRequest();
+// xhr.open('GET', 'https://emi.azure-api.net/rtp/?');
+// xhr.onload = function() {
+//   if (xhr.status === 200) {
+//     alert('User\'s name is ' + xhr.responseText);
+//   }
+//   else {
+//     alert('Request failed.  Returned status of ' + xhr.status);
+//   }
+// };
+// xhr.send();
 
 
 /**
@@ -78,7 +46,7 @@ let GRAPHQL_ENDPOINT = SiteGraphqlConfig.getGraphqlEndPoint();
  * ToDo: get fragment and union matching to work
  */
 const networkInterface = createNetworkInterface({
-  //uri: 'http://my-app.local/graphql'
+  // uri: 'http://real-time-price.d/graphql'
   uri: GRAPHQL_ENDPOINT
 });
 

@@ -44,11 +44,23 @@ ErrorDocument 500 /assets/error-500.html
     RewriteRule composer\.(json|lock) - [F,L,NC]
     RewriteRule (error|silverstripe|debug)\.log - [F,L,NC]
 
-    # Process through SilverStripe if no file with the requested name exists.
-    # Pass through the original path as a query parameter, and retain the existing parameters.
-    # Try finding framework in the vendor folder first
-    RewriteCond %{REQUEST_URI} ^(.*)$
+    # use our index.php file to run our SIlverStripe backend
+    # currently this will load if the url contains 'admin'
+
+#    RewriteCond %{REQUEST_URI} ^(.*)$
+#    RewriteCond %{REQUEST_FILENAME} !-f
+#    RewriteRule .* index.php
+
+
+    RewriteCond %{REQUEST_URI} dev||admin
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule .* index.php
+
+
+    RewriteCond %{REQUEST_URI} ^(.*)$
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule .* themes/react-app/public/index.html
+
+
 </IfModule>
 ### SILVERSTRIPE END ###

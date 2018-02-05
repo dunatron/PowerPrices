@@ -13,7 +13,8 @@ class PowerNode extends DataObject implements ScaffoldingProvider
 {
     private static $db = [
         'Title' => 'Varchar(255)',
-        'NodeID'=> 'Varchar(50)'
+        'NodeID'=> 'Varchar(50)',
+        'BgColor' => 'TractorCow\Colorpicker\Color'
     ];
 
     private static $has_many = [
@@ -56,5 +57,19 @@ class PowerNode extends DataObject implements ScaffoldingProvider
             })
             ->end();
         return $scaffolder;
+    }
+
+    public static function get_by_NodeID($callerClass, $id, $cache = true) {
+        // Check filter column
+        if(is_subclass_of($callerClass, DataObject::class)) {
+            $baseClass = DataObject::getSchema()->baseDataClass($callerClass);
+            $column = "\"$baseClass\".\"NodeID\"";
+        } else{
+            // This simpler code will be used by non-DataObject classes that implement DataObjectInterface
+            $column = '"NodeID"';
+        }
+        $column = '"NodeID"';
+        // Relegate to get_one
+        return DataObject::get_one($callerClass, array($column => $id), $cache);
     }
 }

@@ -21,9 +21,9 @@ class NodeData extends DataObject implements ScaffoldingProvider
         'Interval_datetime' => 'DBDatetime',
         'five_min_period' => 'Varchar(255)',
         'isDayLightSavingHR' => 'Boolean',
-        'load' => 'Decimal',
-        'generation' => 'Decimal',
-        'price' => 'Decimal',
+        'load' => 'Varchar(255)',
+        'generation' => 'Varchar(255)',
+        'price' => 'Varchar(255)',
     ];
 
     private static $has_one = [
