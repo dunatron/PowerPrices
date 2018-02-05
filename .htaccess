@@ -52,7 +52,9 @@ ErrorDocument 500 /assets/error-500.html
 #    RewriteRule .* index.php
 
 
-    RewriteCond %{REQUEST_URI} dev||admin
+    RewriteCond %{REQUEST_URI} admin [OR]
+    RewriteCond %{REQUEST_URI} dev [OR]
+    RewriteCond %{REQUEST_URI} graphql
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule .* index.php
 
